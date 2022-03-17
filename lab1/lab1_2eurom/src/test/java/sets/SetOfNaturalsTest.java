@@ -74,6 +74,7 @@ public class SetOfNaturalsTest {
     @Test
     public void testIntersection(){
         assertTrue(SetOfNaturals.fromArray(new int[]{1,3,4,5}).intersects(SetOfNaturals.fromArray(new int[]{14,2,1,33,21})));
+        assertFalse(SetOfNaturals.fromArray(new int[]{1,3,4,5}).intersects(SetOfNaturals.fromArray(new int[]{14,2,33,21})));
     }
 
     

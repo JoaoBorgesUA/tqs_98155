@@ -1,0 +1,12 @@
+-------------------------------------------------------------------------------
+Test set: com.example.Tqsblazedemo.UntitledTestCase
+-------------------------------------------------------------------------------
+Tests run: 2, Failures: 0, Errors: 2, Skipped: 0, Time elapsed: 0.082 s <<< FAILURE! - in com.example.Tqsblazedemo.UntitledTestCase
+testUntitledTestCase(com.example.Tqsblazedemo.UntitledTestCase)  Time elapsed: 0.045 s  <<< ERROR!
+java.lang.IllegalStateException: The driver executable does not exist: /home/borges/tqs_98155/lab4/lab4_2/KR-exported-java-junit-maven-project
+	at com.example.Tqsblazedemo.UntitledTestCase.setUp(UntitledTestCase.java:23)
+
+testUntitledTestCase(com.example.Tqsblazedemo.UntitledTestCase)  Time elapsed: 0.045 s  <<< ERROR!
+java.lang.NullPointerException
+	at com.example.Tqsblazedemo.UntitledTestCase.tearDown(UntitledTestCase.java:54)
+

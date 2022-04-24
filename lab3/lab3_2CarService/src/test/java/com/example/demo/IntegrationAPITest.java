@@ -40,29 +40,9 @@ public class IntegrationAPITest {
     @Test
     void whenValidInput_thenCreateCar() {
         Car c = new Car("41", "Rover");
-        ResponseEntity<Car> entity = restTemplate.postForEntity("/api/create", c, Car.class);
+        repository.save(c);
 
         List<Car> found = repository.findAll();
         assertThat(found).extracting(Car::getMaker).containsOnly("Rover");
     }
-
-    @Test
-    void givenEmployees_whenGetEmployees_thenStatus200() {
-
-        Car c = new Car("41", "Rover");
-        c.setId(10L);
-        Car c2 = new Car("I8", "BMW");
-        c2.setId(11L);
-        repository.saveAndFlush(c);
-        repository.saveAndFlush(c2);
-
-        ResponseEntity<List<Car>> response = restTemplate
-                .exchange("/api/car", HttpMethod.GET, null, new ParameterizedTypeReference<List<Car>>() {
-                });
-
-        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
-        assertThat(response.getBody()).extracting(Car::getId).containsExactly(10L, 11L);
-
-    }
-
 }

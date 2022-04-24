@@ -6,6 +6,7 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 
 import java.util.List;
+import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -25,14 +26,14 @@ public class CarRepositoryTest {
         entityManager.persistAndFlush(c); // ensure data is persisted at this point
 
         // test the query method of interest
-        Car found = repo.findByCarID(c.getId());
+        Car found = repo.findById(c.getId()).orElse(null);
         assertThat(found).isEqualTo(c);
     }
 
     @Test
     void FindByWrongID_Test() {
-        Car fromDb = repo.findByCarID(-10L);
-        assertThat(fromDb).isNull();
+        Optional<Car> fromDb = repo.findById(-10L);
+        assertThat(fromDb).isEmpty();
     }
 
     @Test

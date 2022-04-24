@@ -45,7 +45,7 @@ public class CarServiceTest {
 
     @Test
     void whenSearchValidID_thenCarFound() {
-        Car found = carService.getCarDetails(100L);
+        Car found = carService.getCarDetails(100L).orElse(null);
 
         assertThat(found.getId()).isEqualTo(100L);
         verifyFindByIDIsCalledOnce();
@@ -53,8 +53,8 @@ public class CarServiceTest {
 
     @Test
     void whenSearchInvalidID_thenCarNotFound() {
-        Car c = carService.getCarDetails(-10L);
-        assertThat(c).isNull();
+        Optional<Car> c = carService.getCarDetails(-10L);
+        assertThat(c).isEmpty();
 
         verifyFindByIDIsCalledOnce();
     }
@@ -73,7 +73,7 @@ public class CarServiceTest {
     }
 
     private void verifyFindByIDIsCalledOnce() {
-        Mockito.verify(carRepository, VerificationModeFactory.times(1)).findByCarID(Mockito.anyLong());
+        Mockito.verify(carRepository, VerificationModeFactory.times(1)).findById(Mockito.anyLong());
     }
 
 }

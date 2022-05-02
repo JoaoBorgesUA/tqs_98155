@@ -52,9 +52,9 @@
     <div class="w3-row-padding w3-margin-bottom w3-top" style="margin: 200px">
       <div class="w3-quarter w3-center" th:each="alldata: ${alldata}">
         <div class="w3-container w3-black w3-padding-16">
-          <p th:id="'key'+ ${alldata.key}" th:text="${alldata.key}"></p>
+          <p th:id="${alldata.key}" th:text="${alldata.key}"></p>
           <br />
-          <p th:id="'value'+ ${alldata.key}" th:text="${alldata.value}"></p>
+          <p th:id="${alldata.key}" th:text="${alldata.value}"></p>
         </div>
       </div>
     </div>

@@ -36,6 +36,9 @@
 		<project.reporting.outputEncoding>${project.encondig}</project.reporting.outputEncoding>
 
         <jacoco.version>0.8.6</jacoco.version>
+
+        <sonar.organization>joaoborgesua</sonar.organization>
+        <sonar.host.url>https://sonarcloud.io</sonar.host.url>
 	</properties>
 
 	<dependencyManagement>
@@ -185,6 +188,11 @@
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.springdoc</groupId>
+            <artifactId>springdoc-openapi-ui</artifactId>
+            <version>1.6.4</version>
+        </dependency>
 
 	</dependencies>
 
@@ -237,24 +245,6 @@
 					</execution>
 				</executions>
 			</plugin>
-                <!-- <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-enforcer-plugin</artifactId>
-                    <version>3.0.0-M2</version>
-                    <executions>
-                        <execution>
-                            <id>default-cli</id>
-                            <configuration>
-                                <rules>
-                                    <DependencyConvergence/>
-                                </rules>
-                            </configuration>
-                            <goals>
-                                <goal>enforce</goal>
-                            </goals>
-                        </execution>
-                    </executions>
-                </plugin> -->
 		</plugins>
 	</build>
 

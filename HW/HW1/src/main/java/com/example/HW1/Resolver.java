@@ -48,7 +48,6 @@ public class Resolver {
         String response = null;
         response = this.httpClient
                 .GetData("https://covid-19-statistics.p.rapidapi.com/reports/total?date=" + date);
-        System.out.println(response);
 
         return JsonTransformData(response);
     }

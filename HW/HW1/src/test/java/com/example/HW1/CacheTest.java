@@ -34,16 +34,16 @@ public class CacheTest {
     @Test
     public void getTest() throws ParseException {
         when(repo.findByCountry("Portugal")).thenReturn(Optional.of(new CovObject("2021-04-02", "Portugal", 120)));
-        assertEquals(cache.checkCachedCountry("Portugal").getNew_cases(), 120);
-        assertEquals(cache.getHits(), 1);
-        assertEquals(cache.getMisses(), 0);
+        assertEquals(120, cache.checkCachedCountry("Portugal").getNew_cases());
+        assertEquals(1, cache.getHits());
+        assertEquals(0, cache.getMisses());
     }
 
     public void getWhenNoneInCache() throws ParseException {
         when(repo.findByCountry("Portugal")).thenReturn(Optional.of(null));
-        assertEquals(cache.checkCachedCountry("Portugal"), null);
-        assertEquals(cache.getHits(), 0);
-        assertEquals(cache.getMisses(), 1);
+        assertEquals(null, cache.checkCachedCountry("Portugal"));
+        assertEquals(0, cache.getHits());
+        assertEquals(1, cache.getMisses());
     }
 
 }

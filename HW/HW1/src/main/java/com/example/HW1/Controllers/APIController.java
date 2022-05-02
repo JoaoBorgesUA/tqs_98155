@@ -31,13 +31,6 @@ public class APIController {
     @Autowired
     private Cache cache;
 
-    // TWEETS
-
-    // @GetMapping("/all_tweets")
-    // public List<Datum> getAllTweets(@RequestParam(value = "trends", required =
-    // false) String trends) {
-    // return service.getAllTweets();
-
     @GetMapping("/get_country/{country}")
     public CovObject getCountry(@PathVariable(value = "country") String country)
             throws IOException, ParseException, InterruptedException, java.text.ParseException {

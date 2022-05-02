@@ -28,16 +28,9 @@ public class ResolverTest {
     Environment environments;
 
     @Test
-    public void ApiAskTest() throws IOException, InterruptedException {
-        when(httpClient
-                .GetData("https://covid-19-statistics.p.rapidapi.com/reports?region_name=Portugal&date=2020-04-16"))
-                .thenReturn("{\"id\":1,\"country\":\"Portugal\",\"new_cases\":750,\"date\":\"2020-04-16\"");
-    }
-
-    @Test
     public void ApiResultTestCountry() throws IOException, ParseException, InterruptedException {
         when(httpClient
-                .GetData("https://covid-19-statistics.p.rapidapi.com/reports?region_name=Portugal&date=2020-04-16"))
+                .GetData("https://covid-19-statistics.p.rapidapi.com/reports?region_name=Portugal"))
                 .thenReturn(
                         "{\"data\":[{\"id\":1,\"confirmed_diff\":750,\"date\":\"2020-04-16\",\"region\":{\"name\":\"Portugal\"}}]}");
         CovObject testObj = resolver.getDataByCountry("Portugal");

@@ -26,11 +26,6 @@ public class View {
     @Autowired
     APIService service;
 
-    @GetMapping("/index")
-    public String index(Model model) {
-        return "index";
-    }
-
     @PostMapping("/Country")
     public String statsOfACountry(@ModelAttribute("CovObject") CovObject covObject, Model model)
             throws IOException, ParseException, InterruptedException, java.text.ParseException {

@@ -15,10 +15,7 @@ import java.net.http.HttpClient;
 public class Client {
     private static final Logger log = LoggerFactory.getLogger(Client.class);
 
-    public Client() {
-    }
-
-    public String GetData(String URINeeded) throws IOException, InterruptedException {
+    public String GetData(String URINeeded) throws IOException, InterruptedException, NullPointerException {
 
         HttpResponse<String> response = null;
 
@@ -35,9 +32,13 @@ public class Client {
             response = HttpClient.newHttpClient().send(request,
                     HttpResponse.BodyHandlers.ofString());
 
-        } catch (Exception e) {
-            System.err.println(e);
+        } catch (InterruptedException e) {
             log.info("--------------------- Error while sending the request: {} ---------------------", e);
+            Thread.currentThread().interrupt();
+            throw new NullPointerException();
+        } catch (Exception e) {
+            log.info("--------------------- Error while sending the request: {} ---------------------", e);
+            throw new NullPointerException();
         }
         log.info("--------------------- Request Successful ---------------------");
         return response.body();

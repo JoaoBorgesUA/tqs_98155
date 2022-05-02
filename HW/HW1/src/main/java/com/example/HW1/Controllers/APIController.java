@@ -2,6 +2,7 @@ package com.example.HW1.Controllers;
 
 import java.io.IOException;
 
+import com.example.HW1.Cache;
 import com.example.HW1.Models.CovObject;
 import com.example.HW1.Repositories.CovRepository;
 import com.example.HW1.Service.APIService;
@@ -27,6 +28,9 @@ public class APIController {
     @Autowired
     private CovRepository covRepository;
 
+    @Autowired
+    private Cache cache;
+
     // TWEETS
 
     // @GetMapping("/all_tweets")
@@ -47,5 +51,26 @@ public class APIController {
         log.info("Requesting statistics of the day {}", date);
         return service.serviceGetDay(date);
 
+    }
+
+    @GetMapping("/cacheStats/getHits")
+    public int getCacheStatsHits()
+            throws IOException, ParseException, InterruptedException, java.text.ParseException {
+        log.info("Requesting Cache statistics of the amount of hits");
+        return cache.getHits();
+    }
+
+    @GetMapping("/cacheStats/getMisses")
+    public int getCacheStatsMisses()
+            throws IOException, ParseException, InterruptedException, java.text.ParseException {
+        log.info("Requesting Cache statistics of the amount of misses");
+        return cache.getMisses();
+    }
+
+    @GetMapping("/cacheStats/getRequests")
+    public int getCacheStatsRequests()
+            throws IOException, ParseException, InterruptedException, java.text.ParseException {
+        log.info("Requesting Cache statistics of the amount of Requests");
+        return cache.getRequest();
     }
 }

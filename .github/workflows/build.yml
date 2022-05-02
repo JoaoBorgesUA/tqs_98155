@@ -5,6 +5,9 @@ on:
       - master
   pull_request:
     types: [opened, synchronize, reopened]
+defaults:
+  run:
+    working-directory: HW/HW1
 jobs:
   build:
     name: Build

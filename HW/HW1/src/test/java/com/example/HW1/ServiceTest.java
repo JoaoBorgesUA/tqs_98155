@@ -1,59 +1,73 @@
 package com.example.HW1;
 
 import static org.junit.Assert.assertEquals;
-import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.io.IOException;
 import java.text.ParseException;
 
-import com.example.HW1.Cache;
-import com.example.HW1.Resolver;
 import com.example.HW1.Models.CovObject;
 import com.example.HW1.Repositories.CovRepository;
 import com.example.HW1.Service.APIService;
 
 import org.junit.Test;
-import org.junit.jupiter.api.BeforeEach;
+import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.mockito.Mockito;
+import org.mockito.internal.verification.VerificationModeFactory;
+import org.mockito.junit.MockitoJUnitRunner;
 
-@SpringBootTest
+@RunWith(MockitoJUnitRunner.class)
 public class ServiceTest {
-    CovObject MockObj;
+        CovObject MockObj;
 
-    @Mock
-    private Cache cache;
+        @Mock(lenient = true)
+        public CovRepository repository;
 
-    @Mock
-    private CovRepository repository;
+        @Mock(lenient = true)
+        public Cache cache;
 
-    @Mock
-    private Resolver resolver;
+        @Mock(lenient = true)
+        public Resolver resolver;
 
-    @InjectMocks
-    private APIService service;
+        @InjectMocks
+        public APIService service;
 
-    @BeforeEach
-    void setUp() {
-        MockObj = new CovObject();
-        this.MockObj.setCountry("Portugal");
-        this.MockObj.setNew_cases(750);
-        this.MockObj.setDate("2022-04-16");
+        @Test
+        public void whenValidCountry_returnCachedCases()
+                        throws IOException, org.json.simple.parser.ParseException, InterruptedException,
+                        ParseException {
+                when(cache.checkCachedCountry("Portugal"))
+                                .thenReturn(new CovObject("2020-04-03", "Portugal", 2231));
+                CovObject result = service.serviceGetCountry("Portugal");
+                assertEquals("Portugal", result.getCountry());
+                Mockito.verify(cache, VerificationModeFactory.times(1)).checkCachedCountry(Mockito.anyString());
+        }
 
-    }
+        @Test
+        public void whenValidCountry_returnFromResolver()
+                        throws IOException, org.json.simple.parser.ParseException, InterruptedException,
+                        ParseException {
+                when(resolver.getDataByCountry("Albania"))
+                                .thenReturn(new CovObject("2020-04-03", "Albania", 2231));
+                CovObject result = service.serviceGetCountry("Albania");
+                assertEquals("Albania", result.getCountry());
+                Mockito.verify(cache, VerificationModeFactory.times(1)).checkCachedCountry(Mockito.anyString());
+                Mockito.verify(resolver, VerificationModeFactory.times(1)).getDataByCountry(Mockito.anyString());
+        }
 
-    @Test
-    public void getDataFromCache()
-            throws ParseException, IOException, org.json.simple.parser.ParseException, InterruptedException {
-        when(cache.checkCachedCountry("Portugal")).thenReturn(this.MockObj);
-
-        CovObject result = service.serviceGetCountry("Portugal");
-        verify(cache, times(1)).checkCachedCountry(anyString());
-        assertEquals(result, this.MockObj);
-    }
+        @Test
+        public void whenInValidCountry_returnNone()
+                        throws IOException, org.json.simple.parser.ParseException, InterruptedException,
+                        ParseException {
+                when(resolver.getDataByCountry("oiahsdoia"))
+                                .thenReturn(new CovObject());
+                CovObject result = service.serviceGetCountry("oiahsdoia");
+                System.out.println(result);
+                assertEquals(null, result.getCountry());
+                Mockito.verify(cache, VerificationModeFactory.times(1)).checkCachedCountry(Mockito.anyString());
+                Mockito.verify(resolver, VerificationModeFactory.times(1)).getDataByCountry(Mockito.anyString());
+        }
 
 }

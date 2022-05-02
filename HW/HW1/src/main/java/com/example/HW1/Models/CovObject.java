@@ -13,19 +13,23 @@ public class CovObject {
     private String country;
     private int new_cases;
     private String date;
+    private long createdAt;
 
     public CovObject(String date, String country, int new_cases) {
         this.country = country;
         this.new_cases = new_cases;
         this.date = date;
+        this.createdAt = System.currentTimeMillis();
     }
 
     public CovObject(String date, int new_cases) {
         this.new_cases = new_cases;
         this.date = date;
+        this.createdAt = System.currentTimeMillis();
     }
 
     public CovObject() {
+        this.createdAt = System.currentTimeMillis();
     }
 
     public long getId() {
@@ -58,6 +62,14 @@ public class CovObject {
 
     public void setNew_cases(int new_cases) {
         this.new_cases = new_cases;
+    }
+
+    public long getCreatedAt() {
+        return this.createdAt;
+    }
+
+    public void setCreatedAt(long createdAt) {
+        this.createdAt = createdAt;
     }
 
 }

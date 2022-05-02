@@ -37,51 +37,58 @@ public class Cache {
 
     public CovObject checkCachedCountry(String country) throws ParseException {
         request++;
+        log.info("--------------------- Requesting data from the Cache repository ---------------------");
         CovObject c = repo.findByCountry(country).orElse(null);
 
         if (c != null) {
+            log.info("--------------------- Data found ---------------------");
             if (Expired(c)) {
+                log.info("--------------------- Data is expired, removing data ---------------------");
                 repo.delete(c);
                 misses++;
+                log.info("--------------------- No data found in the Cache ---------------------");
                 return null;
             }
+            log.info(
+                    "--------------------- Data is valid, proceeding to deliver to the service class  ---------------------");
             hits++;
             return c;
         }
+        log.info("--------------------- No data found in the cache ---------------------");
         misses++;
         return c;
     }
 
     public CovObject checkCachedDate(String date) throws ParseException {
         request++;
+        log.info("--------------------- Requesting data from the Cache repository ---------------------");
         CovObject c = repo.findByDate(date).orElse(null);
 
         if (c != null) {
+            log.info("--------------------- Data found ---------------------");
             if (Expired(c)) {
+                log.info("--------------------- Data is expired, removing data ---------------------");
                 repo.delete(c);
                 misses++;
+                log.info("--------------------- No data found in the Cache ---------------------");
                 return null;
             }
+            log.info(
+                    "--------------------- Data is valid, proceeding to deliver to the service class  ---------------------");
             hits++;
             return c;
         }
+        log.info("--------------------- No data found in the cache ---------------------");
         misses++;
         return c;
     }
 
     private boolean Expired(CovObject c) throws ParseException {
-        String start_dt = c.getDate();
 
-        Date date = (Date) new SimpleDateFormat("yyyy-MM-DD").parse(start_dt);
-        Date actualDate = new Date(System.currentTimeMillis());
-
-        long diff = actualDate.getTime() - date.getTime();
-
-        // if (diff > (this.TTL * 1000)) { //this is working, but it seems that the api
-        // is not updating for a long time, so it always returns as expired
-        // return true;
-        // }
-
+        long diff = System.currentTimeMillis() - c.getCreatedAt();
+        if (diff > (this.TTL * 1000)) {
+            return true;
+        }
         return false;
     }
 

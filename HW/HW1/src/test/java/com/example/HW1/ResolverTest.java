@@ -1,37 +1,31 @@
 package com.example.HW1;
 
-import org.json.JSONException;
 import org.json.simple.parser.ParseException;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.core.env.Environment;
 
 import java.io.IOException;
-import java.net.URISyntaxException;
-import java.util.List;
 
 import com.example.HW1.Models.CovObject;
-import com.example.HW1.Resolver;
-import com.example.HW1.Client;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.*;
 
-@SpringBootTest
+@ExtendWith(MockitoExtension.class)
 public class ResolverTest {
 
-    @MockBean
+    @Mock(lenient = true)
     Client httpClient;
 
     @InjectMocks
     Resolver resolver;
+
+    @Mock
+    Environment environments;
 
     @Test
     public void ApiAskTest() throws IOException, InterruptedException {
@@ -42,6 +36,10 @@ public class ResolverTest {
 
     @Test
     public void ApiResultTestCountry() throws IOException, ParseException, InterruptedException {
+        when(httpClient
+                .GetData("https://covid-19-statistics.p.rapidapi.com/reports?region_name=Portugal&date=2020-04-16"))
+                .thenReturn(
+                        "{\"data\":[{\"id\":1,\"confirmed_diff\":750,\"date\":\"2020-04-16\",\"region\":{\"name\":\"Portugal\"}}]}");
         CovObject testObj = resolver.getDataByCountry("Portugal");
         assertEquals("Portugal", testObj.getCountry());
         assertEquals("2020-04-16", testObj.getDate());
@@ -58,8 +56,11 @@ public class ResolverTest {
 
     @Test
     public void ApiResultTestDate() throws IOException, ParseException, InterruptedException {
+        when(httpClient
+                .GetData("https://covid-19-statistics.p.rapidapi.com/reports/total?date=2020-04-03"))
+                .thenReturn(
+                        "{\"data\":{\"id\":1,\"confirmed_diff\":82614,\"date\":\"2020-04-03\"}}");
         CovObject testObj = resolver.getDataByDay("2020-04-03");
-        assertEquals("null", testObj.getCountry());
         assertEquals("2020-04-03", testObj.getDate());
         assertEquals(82614, testObj.getNew_cases());
 

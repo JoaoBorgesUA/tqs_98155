@@ -45,18 +45,23 @@
         class="w3-bar w3-xlarge w3-black w3-opacity w3-hover-opacity-off"
         id="myNavbar"
       >
-        <a href="#" class="w3-bar-item w3-button">HOME</a>
+        <a th:href="@{/}" class="w3-bar-item w3-button">HOME</a>
+      </div>
+    </div>
+
+    <div class="w3-row-padding w3-margin-bottom w3-top" style="margin: 200px">
+      <div class="w3-quarter w3-center" th:each="alldata: ${alldata}">
+        <div class="w3-container w3-black w3-padding-16">
+          <p th:id="'key'+ ${alldata.key}" th:text="${alldata.key}"></p>
+          <br />
+          <p th:id="'value'+ ${alldata.key}" th:text="${alldata.value}"></p>
+        </div>
       </div>
     </div>
 
     <!-- Header with image -->
     <header class="bgimg w3-display-container w3-grayscale-min" id="home">
-      <div class="w3-display-middle w3-center">
-        <form action="#" th:action="@{/Country}" method="POST">
-        <input class="w3-input w3-border" name="country" type="text" field="*{country}">
-        <button type="submit" class="w3-button w3-theme">Submit</a>
-        </form>
-      </div>
+      <div class="w3-display-middle w3-center"></div>
     </header>
 
     <!-- Footer -->
@@ -67,10 +72,8 @@
           title="W3.CSS"
           target="_blank"
           class="w3-hover-text-green"
-          ></a
-        >
+        ></a>
       </p>
     </footer>
-
   </body>
 </html>

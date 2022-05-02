@@ -10,8 +10,8 @@ import static io.cucumber.junit.platform.engine.Constants.GLUE_PROPERTY_NAME;
 
 @Suite
 @IncludeEngines("cucumber")
-@SelectClasspathResource("java/com/example/HW1")
+@SelectClasspathResource("com/example/HW1")
 @ConfigurationParameter(key = PLUGIN_PROPERTY_NAME, value = "pretty")
-@ConfigurationParameter(key = GLUE_PROPERTY_NAME, value = "java/com/example/HW1")
+@ConfigurationParameter(key = GLUE_PROPERTY_NAME, value = "com/example/HW1")
 public class RunCucumberTest {
 }

@@ -5,6 +5,5 @@ Feature: HW1 testing
 		And I select the searchbar and type "Portugal"
 		And I click on the Submit button
 		Then the title of the page should be "Country"
-		And there should be a card with the title "New cases" and value "0"
 		And there should be a card with the title "Country" and value "Portugal"
-		
+

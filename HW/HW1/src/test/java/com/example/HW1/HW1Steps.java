@@ -15,39 +15,33 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 
 public class HW1Steps {
 
-    private WebDriver driver;
+    // private WebDriver driver;
 
-    @When("I navigate to {string}")
-    public void iNavigateTo(String url) {
-        driver = WebDriverManager.chromedriver().create();
-        driver.get(url);
-    }
+    // @When("I navigate to {string}")
+    // public void iNavigateTo(String url) {
+    // driver = WebDriverManager.chromedriver().create();
+    // driver.get(url);
+    // }
 
-    @And("I select the searchbar and type {string}")
-    public void iSearch(String c) {
-        driver.findElement(By.tagName("input")).sendKeys(c);
+    // @And("I select the searchbar and type {string}")
+    // public void iSearch(String c) {
+    // driver.findElement(By.tagName("input")).sendKeys(c);
 
-    }
+    // }
 
-    @And("I click on the Submit button")
-    public void iPressEnter() {
-        driver.findElement(By.tagName("button")).click();
-    }
+    // @And("I click on the Submit button")
+    // public void iPressEnter() {
+    // driver.findElement(By.tagName("button")).click();
+    // }
 
-    @Then("the title of the page should be {string}")
-    public void TitleOfthePage(String result) {
-        assertEquals(result, driver.getTitle());
-    }
+    // @Then("the title of the page should be {string}")
+    // public void TitleOfthePage(String result) {
+    // assertEquals(result, driver.getTitle());
+    // }
 
-    @And("there should be a card with the title {string} and value {string}")
-    public void NewCasesCards(String title, String value) {
-        assertTrue(driver.findElement(By.xpath("/html/body/div[2]/div[1]/div/p[1]")).getText().contains(title));
-        assertTrue(driver.findElement(By.xpath("/html/body/div[2]/div[1]/div/p[2]")).getText().contains(value));
-    }
-
-    @And("there should be a card with the title {string} and value {string}")
-    public void Cards(String title, String value) {
-        assertTrue(driver.findElement(By.xpath("/html/body/div[2]/div[2]/div/p[2]")).getText().contains(title));
-        assertTrue(driver.findElement(By.xpath("/html/body/div[2]/div[2]/div/p[2]")).getText().contains(value));
-    }
+    // @And("there should be a card with the title {string} and value {string}")
+    // public void NewCasesCards(String title, String value) {
+    // assertTrue(driver.findElement(By.xpath("/html/body/div[2]/div[1]/div/p[1]")).getText().contains(title));
+    // assertTrue(driver.findElement(By.xpath("/html/body/div[2]/div[1]/div/p[2]")).getText().contains(value));
+    // }
 }

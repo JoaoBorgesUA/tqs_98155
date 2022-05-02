@@ -7,3 +7,4 @@ Feature: HW1 testing
 		Then the title of the page should be "Country"
 		And there should be a card with the title "New cases" and value "0"
 		And there should be a card with the title "Country" and value "Portugal"
+		

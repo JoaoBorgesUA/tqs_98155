@@ -32,7 +32,7 @@ public class CacheTest {
     }
 
     @Test
-    public void getTest() throws ParseException {
+    public void getTestCountry() throws ParseException {
         when(repo.findByCountry("Portugal")).thenReturn(Optional.of(new CovObject("2021-04-02", "Portugal", 120)));
         assertEquals(120, cache.checkCachedCountry("Portugal").getNew_cases());
         assertEquals(1, cache.getHits());
@@ -46,4 +46,9 @@ public class CacheTest {
         assertEquals(1, cache.getMisses());
     }
 
+    @Test
+    public void getTestDate() throws ParseException {
+        when(repo.findByDate("2021-04-01")).thenReturn(Optional.of(new CovObject("2021-04-01", null, 120)));
+        assertEquals(120, cache.checkCachedDate("2021-04-01").getNew_cases());
+    }
 }
